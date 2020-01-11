@@ -1,2 +1,44 @@
 # ADVANCED-ENCRYPTION-STANDARD-AES--128-bits
 The Advanced Encryption Standard (AES) specifies a FIPS-approved cryptographic algorithm that can be used to protect electronic data. The AES algorithm is a symmetric block cipher that can encrypt (encipher) and decrypt (decipher) information. Encryption converts data to an unintelligible form called ciphertext; decrypting the ciphertext converts the data back into its original form, called plaintext. The AES algorithm can use cryptographic keys of 128, 192, and 256 bits to encrypt and decrypt data in blocks of 128 bits.
+
+## Operation of AES
+AES is an iterative rather than Feistel cipher. It is based on ‘substitution–permutation network’. It comprises of a series of linked operations, some of which involve replacing inputs by specific outputs (substitutions) and others involve shuffling bits around (permutations).
+
+Interestingly, AES performs all its computations on bytes rather than bits. Hence, AES treats the 128 bits of a plaintext block as 16 bytes. These 16 bytes are arranged in four columns and four rows for processing as a matrix.
+AES is variable and depends on the length of the key. AES uses 10 rounds for 128-bit keys, 12 rounds for 192-bit keys and 14 rounds for 256-bit keys. Each of these rounds uses a different 128-bit round key, which is calculated from the original AES key.
+
+## ByteSubstitution ():
+In this transformation step, each of the byte in the state matrix is replaced with another byte as per the S-box (Substitution Box) as its name implied. The result is in a matrix of four rows and four columns.
+
+## Shiftrows ():
+Each of the four rows of the matrix is shifted to the left. Any entries that ‘fall off’ are re-inserted on the right side of row. Shift is carried out as follows −
+• First row is not shifted.
+• Second row is shifted one (byte) position to the left.
+• Third row is shifted two positions to the left.
+• Fourth row is shifted three positions to the left.
+• The result is a new matrix consisting of the same 16 bytes but shifted with respect to each other.
+
+## MixColumns ():
+Each column of four bytes is now transformed using a special mathematical function. This function takes as input the four bytes of one column and outputs four completely new bytes, which replace the original column. The result is another new matrix consisting of 16 new bytes. It should be noted that this step is not performed in the last round.
+
+## Addroundkey ():
+The 16 bytes of the matrix are now considered as 128 bits and are XORed to the 128 bits of the round key. If this is the last round, then the output is the ciphertext. Otherwise, the resulting 128 bits are interpreted as 16 bytes and we begin another similar round.
+
+## Decryption Process
+The process of decryption of an AES ciphertext is similar to the encryption process in the reverse order. Each round consists of the four processes conducted in the reverse order −
+## • InvAddround key ()
+## • InvMixcolumns ()
+## • InvShiftrows ()
+## • InvBytesubstitution ()
+Since sub-processes in each round are in reverse manner, unlike for a Feistel Cipher, the encryption and decryption algorithms need to be separately implemented, although they are very closely related. Round depends on key size. If key size is 16 bytes then round will ne 10, for 24 bytes rounds will be 12 and for 32 bytes its 14.
+
+## Key Expansion:
+The AES algorithm takes the Cipher Key, K, and performs a Key Expansion routine to generate a key schedule. The Key Expansion generates a total of Nb (Nr + 1) words: the algorithm requires an initial set of Nb words, and each of the Nr rounds requires Nb words of key data. The resulting key schedule consists of a linear array of 4-byte words, denoted [wi ], with i in the range 0 £ i < Nb(Nr + 1).
+
+Useful Links:
+https://www.comparitech.com/blog/information-security/what-is-aes-encryption/
+https://www.commonlounge.com/discussion/e32fdd267aaa4240a4464723bc74d0a5
+https://cboard.cprogramming.com/c-programming/87805-[tutorial]-implementing-advanced-encryption-standard.html
+
+
+happy coding 😊
